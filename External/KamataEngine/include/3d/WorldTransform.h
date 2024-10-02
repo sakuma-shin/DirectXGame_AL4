@@ -5,6 +5,7 @@
 #include <d3d12.h>
 #include <type_traits>
 #include <wrl.h>
+#include"ExMath.h"
 
 namespace KamataEngine {
 
@@ -53,6 +54,8 @@ public:
 	/// </summary>
 	/// <returns>定数バッファ</returns>
 	const Microsoft::WRL::ComPtr<ID3D12Resource>& GetConstBuffer() const { return constBuffer_; }
+
+	void UpdateMatrix();
 
 private:
 	// 定数バッファ

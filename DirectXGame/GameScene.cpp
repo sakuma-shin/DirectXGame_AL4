@@ -31,7 +31,13 @@ void GameScene::Initialize()
 	//初期化
 	player_->Initialize(playerModel_,playerTextureHandle_);
 
-
+	// デバッグカメラの生成
+	debugCamera_ = new DebugCamera(1280, 720);
+	
+	//軸方向表示の表示を有効にする
+	AxisIndicator::GetInstance()->SetVisible(true);
+	//軸方向表示が参照するビュープロジェクションを指定する
+	AxisIndicator::GetInstance()->SetTargetCamera(&camera_);
 
 }
 
@@ -39,6 +45,25 @@ void GameScene::Update()
 {
 	//自キャラの更新
 	player_->Update();
+
+	debugCamera_->Update();
+
+#ifdef _DEBUG
+	if (input_->TriggerKey(DIK_0)) {
+		isDebugCameraActive_ = !isDebugCameraActive_;
+	}
+#endif
+
+	if (isDebugCameraActive_) {
+		debugCamera_->Update();
+		camera_.matView = debugCamera_->GetCamera().matView;
+		camera_.matProjection = debugCamera_->GetCamera().matProjection;
+		// ビュープロジェクション行列の転送
+		camera_.TransferMatrix();
+	} else {
+		// ビュープロジェクション行列の更新と転送
+		camera_.UpdateMatrix();
+	}
 }
 
 void GameScene::Draw()

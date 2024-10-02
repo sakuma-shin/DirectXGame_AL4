@@ -1,8 +1,12 @@
 #pragma once
-#include"KamataEngine.h"
+#include <audio\Audio.h>
+#include <base\TextureManager.h>
+#include <3d\DebugCamera.h>
+#include <3d\AxisIndicator.h>
+#include <3d\Camera.h>
+#include <2d\Sprite.h>
 #include"player.h"
 
-using namespace KamataEngine;
 
 class GameScene
 {
@@ -36,6 +40,12 @@ private:
 
 	//自キャラ
 	Player* player_ = nullptr;
+
+
+	//デバッグカメラ
+	DebugCamera* debugCamera_ = nullptr;
+
+	bool isDebugCameraActive_ = false;
 
 
 };

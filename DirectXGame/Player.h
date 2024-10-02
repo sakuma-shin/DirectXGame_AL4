@@ -1,6 +1,10 @@
 #pragma once
 #include <3d\WorldTransform.h>
 #include <3d\Model.h>
+#include <input\Input.h>
+#include <math\Vector3.h>
+#include"ExMath.h"
+#include <2d\ImGuiManager.h>
 
 using namespace KamataEngine;
 class Player
@@ -26,5 +30,8 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	ObjectColor objColor;
+
+	//キーボード入力
+	Input* input_ = nullptr;
 };
 
