@@ -15,6 +15,8 @@ public:
 
 	void Draw(const KamataEngine::Camera& camera);
 
+	bool IsDead() const { return isDead_; }
+
 private:
 	KamataEngine::WorldTransform worldTransform_;
 
@@ -25,5 +27,14 @@ private:
 	uint32_t textureHandle_ = 0u;
 
 	Vector3 velocity_;
+
+	//弾の寿命
+	static const uint32_t kLifeTime = 60 * 5;
+
+	//デスタイマー
+	int32_t deathTimer_ = kLifeTime;
+
+	//デスフラグ
+	bool isDead_ = false;
 };
 

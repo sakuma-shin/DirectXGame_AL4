@@ -23,6 +23,10 @@ void PlayerBullet::Initialize(KamataEngine::Model* model, const KamataEngine::Ve
 
 void PlayerBullet::Update()
 {
+	//時間経過でデス
+	if (--deathTimer_ <= 0) {
+		isDead_ = true;
+	}
 	//座標を移動させる
 	worldTransform_.translation_ += velocity_;
 	worldTransform_.UpdateMatrix();
