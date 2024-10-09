@@ -1,7 +1,7 @@
 #include "playerBullet.h"
 using namespace KamataEngine;
 
-void PlayerBullet::Initialize(KamataEngine::Model* model, const KamataEngine::Vector3& position)
+void PlayerBullet::Initialize(KamataEngine::Model* model, const KamataEngine::Vector3& position, const Vector3& velocity)
 {
 	//NULLポインタチェック
 	assert(model);
@@ -17,10 +17,14 @@ void PlayerBullet::Initialize(KamataEngine::Model* model, const KamataEngine::Ve
 
 	//引数の座標をセット
 	worldTransform_.translation_ = position;
+
+	velocity_ = velocity;
 }
 
 void PlayerBullet::Update()
 {
+	//座標を移動させる
+	worldTransform_.translation_ += velocity_;
 	worldTransform_.UpdateMatrix();
 }
 

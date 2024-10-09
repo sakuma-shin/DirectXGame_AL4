@@ -9,7 +9,7 @@
 class PlayerBullet
 {
 public:
-	void Initialize(KamataEngine::Model* model,const KamataEngine::Vector3& position);
+	void Initialize(KamataEngine::Model* model,const KamataEngine::Vector3& position,const Vector3& velocity);
 
 	void Update();
 
@@ -23,5 +23,7 @@ private:
 	KamataEngine::ObjectColor objColor;
 
 	uint32_t textureHandle_ = 0u;
+
+	Vector3 velocity_;
 };
 
