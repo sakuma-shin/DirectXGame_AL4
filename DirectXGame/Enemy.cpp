@@ -20,6 +20,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 	worldTransform_.Initialize();
 	//引数からpositionを代入して初期座標を設定
 	worldTransform_.translation_ = position;
+	//敵が正面を向くようにする
 	worldTransform_.rotation_.y=3.2f;
 
 	const float kSpeed = -0.2f;
@@ -28,7 +29,7 @@ void Enemy::Initialize(Model* model, uint32_t textureHandle, const Vector3& posi
 
 void Enemy::Update()
 {
-
+	//敵の移動
 	worldTransform_.translation_ += velocity_;
 	worldTransform_.UpdateMatrix();
 }
