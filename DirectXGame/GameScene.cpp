@@ -9,6 +9,7 @@ GameScene::~GameScene()
 {
 	delete playerModel_;
 	delete player_;
+	delete enemy_;
 }
 
 void GameScene::Initialize()
@@ -19,9 +20,11 @@ void GameScene::Initialize()
 
 	//テクスチャ読み込み
 	playerTextureHandle_ = TextureManager::Load("player.png");
+	enemyTextureHandle_ = TextureManager::Load("enemy.png");
 
 	//モデルの生成
 	playerModel_ = Model::CreateFromOBJ("player");
+	enemyModel_ = Model::CreateFromOBJ("enemy");
 
 	camera_.Initialize();
 
@@ -39,12 +42,21 @@ void GameScene::Initialize()
 	//軸方向表示が参照するビュープロジェクションを指定する
 	AxisIndicator::GetInstance()->SetTargetCamera(&camera_);
 
+	//敵キャラ関連
+	enemy_ = new Enemy();
+	//初期化
+	Vector3 enemyPosition = { 0.0f,0.0f,40.0f };
+	enemy_->Initialize(enemyModel_, enemyTextureHandle_,enemyPosition);
+
 }
 
 void GameScene::Update()
 {
 	//自キャラの更新
 	player_->Update();
+
+	//敵の更新
+	enemy_->Update();
 
 	debugCamera_->Update();
 
@@ -93,6 +105,8 @@ void GameScene::Draw()
 	/// ここに3Dオブジェクトの描画処理を追加できる
 	/// 
 	player_->Draw(camera_);
+
+	enemy_->Draw(camera_);
 	/// 
 	/// </summary>
 

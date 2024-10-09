@@ -6,6 +6,7 @@
 #include <3d\Camera.h>
 #include <2d\Sprite.h>
 #include"Player.h"
+#include"Enemy.h"
 
 
 class GameScene
@@ -25,22 +26,26 @@ public:
 
 private:
 
-	DirectXCommon*dxCommon_ = nullptr;
-	Input* input_ = nullptr;
-	Audio* audio_ = nullptr;
+	KamataEngine::DirectXCommon*dxCommon_ = nullptr;
+	KamataEngine::Input* input_ = nullptr;
+	KamataEngine::Audio* audio_ = nullptr;
 
 	//テクスチャハンドル
 	uint32_t playerTextureHandle_ = 0;
 
 	//モデル
-	Model* playerModel_ = nullptr;
+	KamataEngine::Model* playerModel_ = nullptr;
 
 	//カメラ
-	Camera camera_;
+	KamataEngine::Camera camera_;
 
 	//自キャラ
 	Player* player_ = nullptr;
 
+	//敵
+	Enemy* enemy_ = nullptr;
+	uint32_t enemyTextureHandle_ = 0u;
+	KamataEngine::Model* enemyModel_ = nullptr;
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
