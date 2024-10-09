@@ -8,10 +8,14 @@
 #include <base\TextureManager.h>
 #include"PlayerBullet.h"
 #include<cassert>
+#include<list>
 
 class Player
 {
 public:
+
+	Player();
+	~Player();
 
 	//初期化
 	void Initialize(Model* model,uint32_t textureHandle);
@@ -43,6 +47,6 @@ private:
 	Input* input_ = nullptr;
 
 	//弾
-	PlayerBullet* bullet_ = nullptr;
+	std::list<PlayerBullet*> bullets_;
 };
 
