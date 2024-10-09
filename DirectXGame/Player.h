@@ -5,8 +5,10 @@
 #include <math\Vector3.h>
 #include"ExMath.h"
 #include <2d\ImGuiManager.h>
+#include <base\TextureManager.h>
+#include"PlayerBullet.h"
+#include<cassert>
 
-using namespace KamataEngine;
 class Player
 {
 public:
@@ -19,6 +21,12 @@ public:
 
 	//描画
 	void Draw(Camera& camera);
+
+	//回転
+	void Rotate();
+
+	//攻撃
+	void Attack();
 
 private:
 	WorldTransform worldTransform_; 
@@ -33,5 +41,8 @@ private:
 
 	//キーボード入力
 	Input* input_ = nullptr;
+
+	//弾
+	PlayerBullet* bullet_ = nullptr;
 };
 

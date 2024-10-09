@@ -5,7 +5,7 @@
 #include <3d\AxisIndicator.h>
 #include <3d\Camera.h>
 #include <2d\Sprite.h>
-#include"player.h"
+#include"Player.h"
 
 
 class GameScene

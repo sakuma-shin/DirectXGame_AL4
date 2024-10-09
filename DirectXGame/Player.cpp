@@ -1,5 +1,5 @@
 #include "Player.h"
-#include<cassert>
+
 
 
 void Player::Initialize(Model* model, uint32_t textureHandle)
@@ -13,11 +13,17 @@ void Player::Initialize(Model* model, uint32_t textureHandle)
 
 	worldTransform_.Initialize();
 
+	
+
 	input_ = Input::GetInstance();
 }
 
 void Player::Update()
 {
+	//回転
+	Rotate();
+
+	/*移動処理*/
 	//キャラクターの移動ベクトル
 	Vector3 move = { 0,0,0 };
 
@@ -25,16 +31,16 @@ void Player::Update()
 	const float kCharacterSpeed = 0.2f;
 
 	//押した方向で移動ベクトルを変更(左右)
-	if (input_->PushKey(DIK_LEFT)||input_->PushKey(DIK_A)) {
+	if (input_->PushKey(DIK_LEFT)) {
 		move.x -= kCharacterSpeed;
-	} else if (input_->PushKey(DIK_RIGHT) || input_->PushKey(DIK_D)) {
+	} else if (input_->PushKey(DIK_RIGHT)) {
 		move.x += kCharacterSpeed;
 	}
 
 	//押した方向で移動ベクトルを変更(上下)
-	if (input_->PushKey(DIK_UP) || input_->PushKey(DIK_W)) {
+	if (input_->PushKey(DIK_UP)) {
 		move.y += kCharacterSpeed;
-	} else if (input_->PushKey(DIK_DOWN) || input_->PushKey(DIK_S)) {
+	} else if (input_->PushKey(DIK_DOWN)) {
 		move.y -= kCharacterSpeed;
 	}
 
@@ -55,6 +61,15 @@ void Player::Update()
 
 	//座標移動(ベクトルの加算)
 	worldTransform_.translation_ += move;
+	/*移動処理ここまで*/
+	
+	//攻撃処理
+	Attack();
+
+	//弾の更新
+	if (bullet_) {
+		bullet_->Update();
+	}
 
 	worldTransform_.UpdateMatrix();
 
@@ -63,5 +78,35 @@ void Player::Update()
 void Player::Draw(Camera& camera)
 {
 	model_->Draw(worldTransform_, camera, textureHandle_,&objColor);
+
+	//弾の描画
+	if (bullet_) {
+		bullet_->Draw(camera);
+	}
+}
+
+void Player::Rotate()
+{
+	//回転の速さ
+	const float kRotSpeed = 0.02f;
+
+	//押した方向
+	if (input_->PushKey(DIK_A)) {
+		worldTransform_.rotation_.y -= kRotSpeed;
+	} else if (input_->PushKey(DIK_D)) {
+		worldTransform_.rotation_.y += kRotSpeed;
+	}
+}
+
+void Player::Attack()
+{
+	if (input_->PushKey(DIK_SPACE)) {
+		//弾を生成し描画
+		PlayerBullet* newBullet = new PlayerBullet();
+		newBullet->Initialize(model_, worldTransform_.translation_); 
+
+		//弾を登録する
+		bullet_ = newBullet;
+	}
 }
 
