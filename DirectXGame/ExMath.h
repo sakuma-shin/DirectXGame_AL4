@@ -43,6 +43,8 @@ Vector3 TransForm(const Vector3& vector3, const Matrix4x4& matrix);
 
 bool IsCollision(const AABB& a, const AABB& b);
 
+Vector3 TransformNormal(const Vector3& v, const Matrix4x4& m);
+
 //代入演算子オーバーロード
 //Vector3の掛け算
 Vector3& operator*=(Vector3& v, float s);
